@@ -25,11 +25,10 @@
           <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']">
             <Submenu name="1">
               <template slot="title">
-                <Icon type="ios-navigate"></Icon>Item 1
+                <Icon type="md-clipboard" />文章
               </template>
-              <MenuItem name="1-1" :to="{path: `/admin/posts`}">table</MenuItem>
-              <MenuItem name="1-2" :to="{path: `/admin/post/2`}">Option 2</MenuItem>
-              <MenuItem name="1-3">Option 3</MenuItem>
+              <MenuItem name="1-1" :to="{path: `/admin/posts`}">文章列表</MenuItem>
+              <MenuItem name="1-2" :to="{path: `/admin/post`}">新文章</MenuItem>
             </Submenu>
           </Menu>
         </Sider>

@@ -1,6 +1,11 @@
 <template>
   <div>
-    <Table :columns="columns" :data="data" :loading='loading'></Table>
+    <Table
+      :columns="columns"
+      :data="data"
+      :loading='loading'
+      border
+    />
     <Page
       :total="total"
       :page-size='2'
@@ -12,7 +17,7 @@
 </template>
 
 <script>
-import { getPost } from '@/utils/api'
+import { getPost, delPost } from '@/utils/api'
 export default {
   created() {
     this.getTableData()
@@ -26,6 +31,43 @@ export default {
         {title: 'ID', key: 'id'},
         {title: '标题', key: 'title'},
         {title: '标签', key: 'tag'},
+        {
+          title: '操作',
+          key: 'action',
+          width: 150,
+          render: (h, params) => (
+            h('div', [
+              h('Button', {
+                props: {
+                  type: 'primary',
+                  size: 'small'
+                },
+                style: {
+                  marginRight: '5px'
+                },
+                on: {
+                  click: () => {
+                    this.detail(params.row.id)
+                  }
+                }
+              }, 'Edit'),
+              h('Button', {
+                props: {
+                  type: 'error',
+                  size: 'small'
+                },
+                style: {
+                  marginRight: '5px'
+                },
+                on: {
+                  click: () => {
+                    this.delPost(params.row.id)
+                  }
+                }
+              }, 'Delete')
+            ])
+          )
+        }
       ]
     }
   },
@@ -42,6 +84,15 @@ export default {
     },
     handleChangePage(page) {
       this.getTableData(page)
+    },
+    delPost(id) {
+      delPost({id})
+        .then(res => {
+          this.data = this.data.filter(i => id !== i.id)
+        })
+    },
+    detail(id) {
+      this.$router.push({path: `/admin/post/${id}`})
     }
   }
 }

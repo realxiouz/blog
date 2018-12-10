@@ -4,6 +4,7 @@ const Post = mysql.import('../schema/article.js')
 
 router.prefix('/api/post')
 
+// list
 router.get('/', async (ctx, next) => {
   try {
     let {limit, page} = ctx.query
@@ -11,10 +12,25 @@ router.get('/', async (ctx, next) => {
       where: {
         status: 1
       },
-      limit: +limit,
-      offset: (+page - 1) * limit
+      limit: limit ? +limit : 10,
+      offset: page ? (+page - 1) * limit : 0
     })
     ctx.body = {status: 0, data: posts}
+  } catch (err) {
+    ctx.body = {status: 1, msg: JSON.stringify(err)}
+  }
+})
+
+// id
+router.get('/id', async (ctx, next) => {
+  try {
+    let {id} = ctx.query
+    const post = await Post.findOne({
+      where: {
+        id
+      }
+    })
+    ctx.body = {status: 0, data: post}
   } catch (err) {
     ctx.body = {status: 1, msg: JSON.stringify(err)}
   }
@@ -32,6 +48,22 @@ router.post('/', async (ctx, next) => {
       markdown
     })
     ctx.body = {status: 0, data: posts}
+  } catch (err) {
+    ctx.body = {status: 1, msg: JSON.stringify(err)}
+  }
+})
+
+router.delete('/', async (ctx, next) =>  {
+  const {id} = ctx.request.body
+  try {
+    const post = await Post.update({
+      status: 0
+    }, {
+      where: {
+        id
+      }
+    })
+    ctx.body = {status: 0, data: post}
   } catch (err) {
     ctx.body = {status: 1, msg: JSON.stringify(err)}
   }

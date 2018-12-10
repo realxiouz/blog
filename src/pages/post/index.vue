@@ -37,11 +37,16 @@
 
 <script>
 import MarkDown from '@/components/markdown'
-import { newPost } from '@/utils/api'
+import { newPost, getPostById } from '@/utils/api'
 export default {
   mounted() {
     if (this.$route.params.id) {
       this.$Message.info('edit-mode')
+      getPostById({id: this.$route.params.id})
+        .then(res => {
+          const {body, category, markdown, tag, title, type} = res.data
+          this.form = {body, category, markdown, tag, title, type}
+        })
     } else {
       this.$Message.info('new-mode')
     }
