@@ -1,7 +1,11 @@
 <template>
   <div>
-    <Form inline :model="form" ref="form">
-      <FormItem :rules="{require: true, trigger: 'blur', message: '请输入文章标题'}" prop='title'>
+    <Form
+      inline
+      :model="form"
+      ref="form"
+      :rules='rules'>
+      <FormItem prop='title'>
         <Input v-model="form.title">
           <Select slot='prepend' v-model="form.type" style="width:60px">
             <Option :value="1">原创</Option>
@@ -9,17 +13,17 @@
           </Select>
         </Input>
       </FormItem>
-      <FormItem required :rules="[{require: true, trigger: 'blur', message: '请输入文章标题'}]" prop='tag'>
+      <FormItem prop='tag'>
         <Input v-model="form.tag" placeholder="请输入标签">
         </Input>
       </FormItem>
-      <FormItem required>
-        <Select v-model="form.category" placeholder='选择类型'>
+      <FormItem prop='category'>
+        <Select v-model="form.category" placeholder='选择类型' style='width: 100px'>
           <Option :value="i.val" v-for="(i, inx) in categories" :key="inx">{{i.name}}</Option>
         </Select>
       </FormItem>
-      <FormItem required>
-        <Select v-model="form.markdown" placeholder='选择类型' :disabled='isEdit'>
+      <FormItem>
+        <Select v-model="form.markdown" placeholder='选择类型' :disabled='isEdit' style='width: 100px'>
           <Option :value="1">Markdown</Option>
           <Option :value="0">富文本</Option>
         </Select>
@@ -27,7 +31,9 @@
       <FormItem v-if="form.markdown === 1">
         <Checkbox v-model="preSee">预览</Checkbox>
       </FormItem>
-      <mark-down v-if="form.markdown === 1" v-model="form.body" :pre-see="preSee"/>
+      <FormItem style="display: block" prop='body'>
+        <mark-down v-if="form.markdown === 1" v-model="form.body" :pre-see="preSee"/>
+      </FormItem>
       <FormItem>
         <Button @click="handleSubmit" type='primary'>submit</Button>
       </FormItem>
@@ -37,7 +43,6 @@
 
 <script>
 import MarkDown from '@/components/markdown'
-// eslint-disable-next-line
 import { newPost, getPostById, editPost } from '@/utils/api'
 export default {
   created() {
@@ -63,7 +68,23 @@ export default {
         body: ''
       },
       categories: [{name: 'js', val: 0}, {name: 'css', val: 1}],
-      preSee: true
+      preSee: true,
+      rules: {
+        title: [
+          { required: true, message: '填写文章标题', trigger: 'blur' },
+          { min: 5, max: 20, message: '字数限定5-20字' }
+        ],
+        tag: [
+          { required: true, message: '填写文章标签', trigger: 'blur' },
+          { min: 2, max: 8, message: '字数限定2-8字' }
+        ],
+        category: [
+          { required: true, message: '选择文章类型', trigger: 'blur', type: 'number' }
+        ],
+        body: [
+          { required: true, message: '填写文章正文', trigger: ['blur', 'change'] }
+        ]
+      }
     }
   },
   components: {
@@ -73,27 +94,24 @@ export default {
     handleSubmit() {
       this.$refs.form.validate()
         .then(res => {
-          console.log(res)
-          // if (res) {
-          //   if (this.isEdit) {
-          //     editPost(Object.assign({}, this.form, {id: this.$route.params.id}))
-          //       .then(res => {
-          //         this.$Message.info('编辑成功')
-          //         this.$router.go(-1)
-          //       })
-          //   } else {
-          //     newPost(this.form)
-          //       .then(res => {
-          //         this.$Message.info('发布成功')
-          //         this.$router.go(-1)
-          //       })
-          //   }
-          // }
+          if (res) {
+            if (this.isEdit) {
+              editPost(Object.assign({}, this.form, {id: this.$route.params.id}))
+                .then(res => {
+                  this.$Message.info('编辑成功')
+                  this.$router.go(-1)
+                })
+            } else {
+              newPost(this.form)
+                .then(res => {
+                  this.$Message.info('发布成功')
+                  this.$router.go(-1)
+                })
+            }
+          } else {
+            this.$Message.error('表单数据不完整,请完善表单')
+          }
         })
-    }
-  },
-  watch: {
-    'form.body': function(val) {
     }
   }
 }

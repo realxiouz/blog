@@ -33,6 +33,8 @@ module.exports = {
       "imports": "never",
       "exports": "never",
       "functions": "ignore"
-    }]
+    }],
+    'no-tabs': [0],
+    'indent': [0]
   }
 }
