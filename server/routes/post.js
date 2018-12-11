@@ -9,9 +9,9 @@ router.get('/', async (ctx, next) => {
   try {
     let {limit, page} = ctx.query
     const posts = await Post.findAndCount({
-      where: {
-        status: 1
-      },
+      // where: {
+      //   status: 1
+      // },
       limit: limit ? +limit : 10,
       offset: page ? (+page - 1) * limit : 0
     })
@@ -54,10 +54,31 @@ router.post('/', async (ctx, next) => {
 })
 
 router.delete('/', async (ctx, next) =>  {
-  const {id} = ctx.request.body
+  const {id, status} = ctx.request.body
   try {
     const post = await Post.update({
-      status: 0
+      status: status === 0 ? 1 : 0
+    }, {
+      where: {
+        id
+      }
+    })
+    ctx.body = {status: 0, data: post}
+  } catch (err) {
+    ctx.body = {status: 1, msg: JSON.stringify(err)}
+  }
+})
+
+router.put('/', async (ctx) => {
+  const { id, title, body, tag, category, type } = ctx.request.body
+
+  try {
+    const post = await Post.update({
+      title,
+      body,
+      tag,
+      category,
+      type
     }, {
       where: {
         id

@@ -8,7 +8,7 @@
     />
     <Page
       :total="total"
-      :page-size='2'
+      :page-size='10'
       show-total
       show-elevator
       @on-change='handleChangePage'
@@ -32,6 +32,13 @@ export default {
         {title: '标题', key: 'title'},
         {title: '标签', key: 'tag'},
         {
+          title: '类型',
+          width: 120,
+          render: (h, params) => (
+            h('Tag', {props: {color: params.row.markdown === 1 ? 'green' : 'orange'}}, params.row.markdown === 1 ? 'Markdown' : '富文本')
+          )
+        },
+        {
           title: '操作',
           key: 'action',
           width: 150,
@@ -53,7 +60,7 @@ export default {
               }, 'Edit'),
               h('Button', {
                 props: {
-                  type: 'error',
+                  type: params.row.status === 1 ? 'error' : 'success',
                   size: 'small'
                 },
                 style: {
@@ -61,10 +68,10 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.delPost(params.row.id)
+                    this.delPost(params.row)
                   }
                 }
-              }, 'Delete')
+              }, params.row.status === 1 ? 'close' : 'open')
             ])
           )
         }
@@ -74,7 +81,7 @@ export default {
   methods: {
     getTableData(page = 1) {
       this.loading = true
-      getPost({limit: 2, page})
+      getPost({limit: 10, page})
         .then(res => {
           this.loading = false
           this.data = res.data.rows
@@ -85,10 +92,10 @@ export default {
     handleChangePage(page) {
       this.getTableData(page)
     },
-    delPost(id) {
-      delPost({id})
+    delPost(i) {
+      delPost({id: i.id, status: i.status})
         .then(res => {
-          this.data = this.data.filter(i => id !== i.id)
+          i.status === 0 ? i.status = 1 : i.status = 0
         })
     },
     detail(id) {
