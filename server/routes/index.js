@@ -1,8 +1,9 @@
 const router = require('koa-router')()
 
-router.get('/json', async (ctx, next) => {
+router.get('/', async (ctx, next) => {
   ctx.body = {
-    title: 'koa2 json'
+    status: 0,
+    data: 'vue koa blog doing'
   }
 })
 

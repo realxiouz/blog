@@ -18,6 +18,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: '1'
     }
   }, {
-    tableName: 'category'
+    tableName: 'category',
+    timestamps: false,
   });
 };

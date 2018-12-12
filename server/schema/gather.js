@@ -34,6 +34,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: '1'
     }
   }, {
-    tableName: 'gather'
+    tableName: 'gather',
+    timestamps: false,
   });
 };

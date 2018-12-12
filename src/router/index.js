@@ -28,6 +28,14 @@ export default new Router({
         {
           path: 'posts',
           component: _ => import('@/pages/posts')
+        },
+        {
+          path: 'gathers',
+          component: _ => import('@/pages/gathers')
+        },
+        {
+          path: 'gather/:id?',
+          component: _ => import('@/pages/gather')
         }
       ]
     }
