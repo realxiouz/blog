@@ -44,7 +44,7 @@ export default {
 		})
 		setTimeout(_ => {
 			this.contentHtml = this.marked(this.value)
-		}, 100)
+		}, 300)
   },
   methods: {
     handleChange(e) {

@@ -33,9 +33,11 @@
       </FormItem>
       <FormItem style="display: block" prop='body'>
         <mark-down v-if="form.markdown === 1" v-model="form.body" :pre-see="preSee"/>
+        <rich-text v-else v-model="form.body"/>
       </FormItem>
       <FormItem>
         <Button @click="handleSubmit" type='primary'>submit</Button>
+        <Button @click="$router.go(-1)" type='info'>back</Button>
       </FormItem>
     </Form>
   </div>
@@ -43,6 +45,7 @@
 
 <script>
 import MarkDown from '@/components/markdown'
+import RichText from '@/components/richtext'
 import { newPost, getPostById, editPost } from '@/utils/api'
 export default {
   created() {
@@ -67,7 +70,7 @@ export default {
         markdown: 1,
         body: ''
       },
-      categories: [{name: 'js', val: 0}, {name: 'css', val: 1}],
+      categories: [{name: 'js', val: '0'}, {name: 'css', val: '1'}],
       preSee: true,
       rules: {
         title: [
@@ -79,16 +82,16 @@ export default {
           { min: 2, max: 8, message: '字数限定2-8字' }
         ],
         category: [
-          { required: true, message: '选择文章类型', trigger: 'blur', type: 'number' }
+          { required: true, message: '选择文章类型', trigger: 'blur', type: 'string' }
         ],
         body: [
-          { required: true, message: '填写文章正文', trigger: ['blur', 'change'] }
+          { required: true, message: '填写文章正文', trigger: 'blur' }
         ]
       }
     }
   },
   components: {
-    MarkDown
+    MarkDown, RichText
   },
   methods: {
     handleSubmit() {

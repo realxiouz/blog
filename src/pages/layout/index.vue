@@ -28,7 +28,18 @@
                 <Icon type="md-clipboard" />文章
               </template>
               <MenuItem name="1-1" :to="{path: `/admin/posts`}">文章列表</MenuItem>
-              <MenuItem name="1-2" :to="{path: `/admin/post`}">新文章</MenuItem>
+            </Submenu>
+            <Submenu name="2">
+              <template slot="title">
+                <Icon type="md-clipboard" />收藏
+              </template>
+              <MenuItem name="1-1" :to="{path: `/admin/posts`}">收藏列表</MenuItem>
+            </Submenu>
+            <Submenu name="2">
+              <template slot="title">
+                <Icon type="md-clipboard" />随笔
+              </template>
+              <MenuItem name="1-1" :to="{path: `/admin/posts`}">随笔列表</MenuItem>
             </Submenu>
           </Menu>
         </Sider>

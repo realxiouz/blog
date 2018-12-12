@@ -1,5 +1,10 @@
 <template>
   <div>
+    <Button
+      style="margin-bottom:10px;"
+      type="primary"
+      @click="$router.push({path: '/admin/post'})"
+    >New</Button>
     <Table
       :columns="columns"
       :data="data"
@@ -7,6 +12,7 @@
       border
     />
     <Page
+      style="margin-top:10px"
       :total="total"
       :page-size='10'
       show-total
