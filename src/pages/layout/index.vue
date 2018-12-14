@@ -25,7 +25,7 @@
               <template slot="title">
                 <Icon type="md-clipboard" />随笔
               </template>
-              <MenuItem name="1-1" :to="{path: `/admin/posts`}">随笔列表</MenuItem>
+              <MenuItem name="1-1" :to="{path: `/admin/says`}">随笔列表</MenuItem>
             </Submenu>
           </Menu>
         </Sider>

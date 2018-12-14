@@ -36,6 +36,14 @@ export default new Router({
         {
           path: 'gather/:id?',
           component: _ => import('@/pages/gather')
+        },
+        {
+          path: 'says',
+          component: _ => import('@/pages/says')
+        },
+        {
+          path: 'say/:id?',
+          component: _ => import('@/pages/say')
         }
       ]
     }
