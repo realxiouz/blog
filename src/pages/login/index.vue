@@ -33,6 +33,7 @@
 
 <script>
 import { login } from '@/utils/api'
+import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -49,12 +50,13 @@ export default {
           if (res) {
             login(this.form)
               .then(res => {
-                //  todo
-                console.log('success')
+                this.$router.push({path: '/admin/posts'})
+                this.setQNToken(res.data.token)
               })
           }
         })
-    }
+    },
+    ...mapMutations(['setQNToken'])
   }
 }
 </script>

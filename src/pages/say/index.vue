@@ -6,7 +6,7 @@
      -->
     <Upload
       action="http://upload-z2.qiniup.com"
-      :data="{token: 'cF5slgPBN4Ejbie7irffilrjrNw3WPD80Q1wqAMu:BXOKFk7yPsljY3KTSSiPUQXeaJE=:eyJzY29wZSI6ImJsb2ciLCJkZWFkbGluZSI6MTU0NDc4NjI2OH0='}"
+      :data="{token: qnToken}"
     >
         <Button icon="ios-cloud-upload-outline">Upload files</Button>
     </Upload>
@@ -14,6 +14,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
+  computed: {
+    ...mapState(['qnToken'])
+  }
 }
 </script>

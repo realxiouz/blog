@@ -1,5 +1,6 @@
 const router = require('koa-router')()
 const qiniu = require('qiniu')
+const axios = require('axios')
 
 router.prefix('/api/common')
 
@@ -40,6 +41,17 @@ router.get('/qn-token', async ctx => {
     status: 0, data: {token, expires: 7200 * 1000 + new Date().getTime()}
   }
 })
-// cF5slgPBN4Ejbie7irffilrjrNw3WPD80Q1wqAMu:mmKzn6MQtCc5xclnePHQ1w1Fi1s=:eyJzY29wZSI6ImJsb2ciLCJkZWFkbGluZSI6MTU0NDc4NjEzOX0=
-// cF5slgPBN4Ejbie7irffilrjrNw3WPD80Q1wqAMu:BXOKFk7yPsljY3KTSSiPUQXeaJE=:eyJzY29wZSI6ImJsb2ciLCJkZWFkbGluZSI6MTU0NDc4NjI2OH0=
+
+router.get('/test', async ctx => {
+  axios.headers = {
+    Authorization: `UpToken cF5slgPBN4Ejbie7irffilrjrNw3WPD80Q1wqAMu:q2lsZMvq5UVYHb2v2Bsicw7a_bk=:eyJzY29wZSI6ImJsb2ciLCJkZWFkbGluZSI6MTU0NDgwNTI1OH0=`
+  }
+  const res = await axios.get('rsf.qbox.me/list', {
+    params: {
+      bucket: 'blog'
+    }
+  })
+  ctx.body = {status: 0, data: res}
+})
+
 module.exports = router

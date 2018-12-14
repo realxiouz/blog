@@ -16,3 +16,6 @@ export const getGather = p => r.get('/api/gather', {params: p})
 export const delGather = p => r.delete('/api/gather', {data: p})
 export const getGatherById = p => r.get('/api/gather/id', {params: p})
 export const editGather = p => r.put('/api/gather', p)
+
+// test
+export const test = p => r.get('/api/common/test', {params: p})
