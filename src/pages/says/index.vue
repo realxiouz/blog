@@ -7,10 +7,10 @@
 </template>
 
 <script>
-import { test } from '@/utils/api'
+// import { qn } from '@/utils/api'
 export default {
   mounted() {
-    test().then(res => {})
+
   }
 }
 </script>

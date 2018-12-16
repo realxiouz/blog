@@ -42,16 +42,23 @@ router.get('/qn-token', async ctx => {
   }
 })
 
-router.get('/test', async ctx => {
-  axios.headers = {
-    Authorization: `UpToken cF5slgPBN4Ejbie7irffilrjrNw3WPD80Q1wqAMu:q2lsZMvq5UVYHb2v2Bsicw7a_bk=:eyJzY29wZSI6ImJsb2ciLCJkZWFkbGluZSI6MTU0NDgwNTI1OH0=`
-  }
-  const res = await axios.get('rsf.qbox.me/list', {
-    params: {
-      bucket: 'blog'
+router.get('/qn', async ctx => {
+  const url = ctx.query.url
+  var ak = 'cF5slgPBN4Ejbie7irffilrjrNw3WPD80Q1wqAMu'
+  var sk = '5CkJK7SI1Eu6kD70eqgjeprYN0wxzvfPs9PGekdx'
+  var mac = new qiniu.auth.digest.Mac(ak, sk)
+  const qbox = qiniu.util.generateAccessToken(mac, url)
+  try {
+    const res = await axios.get(`http://rsf.qbox.me${url}`, {
+      headers: { Authorization: qbox },
+    })
+    if (res.data) {
+      ctx.body = {status: 0, data: res.data}
     }
-  })
-  ctx.body = {status: 0, data: res}
+  } catch (err) {
+    // console.log(err)
+    ctx.body = {status: 1, data: 'err'}
+  }
 })
 
 module.exports = router

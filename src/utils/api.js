@@ -18,4 +18,4 @@ export const getGatherById = p => r.get('/api/gather/id', {params: p})
 export const editGather = p => r.put('/api/gather', p)
 
 // test
-export const test = p => r.get('/api/common/test', {params: p})
+export const qn = p => r.get('/api/common/qn', {params: p})

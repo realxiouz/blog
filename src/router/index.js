@@ -44,6 +44,10 @@ export default new Router({
         {
           path: 'say/:id?',
           component: _ => import('@/pages/say')
+        },
+        {
+          path: 'qn',
+          component: _ => import('@/pages/qn')
         }
       ]
     }

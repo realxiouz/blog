@@ -21,11 +21,17 @@
               </template>
               <MenuItem name="gathers" :to="{path: `/admin/gathers`}">收藏列表</MenuItem>
             </Submenu>
-            <Submenu name="2">
+            <Submenu name="3">
               <template slot="title">
                 <Icon type="md-clipboard" />随笔
               </template>
               <MenuItem name="1-1" :to="{path: `/admin/says`}">随笔列表</MenuItem>
+            </Submenu>
+            <Submenu name="4">
+              <template slot="title">
+                <Icon type="md-clipboard" />七牛
+              </template>
+              <MenuItem name="1-1" :to="{path: `/admin/qn`}">图片列表</MenuItem>
             </Submenu>
           </Menu>
         </Sider>
