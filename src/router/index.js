@@ -20,6 +20,7 @@ export default new Router({
     {
       path: '/admin',
       component: Layout,
+      redirect: '/admin/login',
       children: [
         {
           path: 'post/:id?',

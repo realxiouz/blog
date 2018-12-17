@@ -53,6 +53,7 @@ export default {
                 this.$router.push({path: '/admin/posts'})
                 this.setQNToken(res.data.token)
               })
+              .catch(_ => {})
           }
         })
     },

@@ -1,14 +1,28 @@
 <template>
   <div>
-    <!--
-      cF5slgPBN4Ejbie7irffilrjrNw3WPD80Q1wqAMu:mmKzn6MQtCc5xclnePHQ1w1Fi1s=:eyJzY29wZSI6ImJsb2ciLCJkZWFkbGluZSI6MTU0NDc4NjEzOX0=
-      cF5slgPBN4Ejbie7irffilrjrNw3WPD80Q1wqAMu:BXOKFk7yPsljY3KTSSiPUQXeaJE=:eyJzY29wZSI6ImJsb2ciLCJkZWFkbGluZSI6MTU0NDc4NjI2OH0=
-     -->
+    <div class="imgs"
+      v-for="(i, inx) in fileList"
+      :key="inx"
+    >
+      <div>
+        <img :src="`http://pjpw0xspe.bkt.clouddn.com/${i.response.hash}`" alt="">
+      </div>
+    </div>
     <Upload
       action="http://upload-z2.qiniup.com"
       :data="{token: qnToken}"
+      :show-upload-list='false'
+      :default-file-list='fileList'
+      :on-success='handleSuccess'
+      :on-error='handleError'
+      ref="upload"
     >
-        <Button icon="ios-cloud-upload-outline">Upload files</Button>
+      <!-- <Button icon="ios-cloud-upload-outline">Upload files</Button> -->
+      <div
+        class="upload-btn"
+      >
+        <Icon type="ios-camera" size="20"></Icon>
+      </div>
     </Upload>
   </div>
 </template>
@@ -18,6 +32,37 @@ import { mapState } from 'vuex'
 export default {
   computed: {
     ...mapState(['qnToken'])
-  }
+  },
+  mounted() {
+    this.fileList = this.$refs.upload.fileList
+  },
+  data() {
+    return {
+      fileList: []
+    }
+  },
+  methods: {
+    handleSuccess(res, file, list) {
+      console.log(res, file, list)
+      this.fileList = list
+    },
+    handleError(err, file, list) {
+      console.log(err, file, list)
+    }
+  },
 }
 </script>
+
+<style lang="scss" scoped>
+.imgs{
+
+}
+.upload-btn{
+  width: 58px;
+  height: 58px;
+  border: 1px dashed #dcdee2;
+  text-align: center;
+  line-height: 58px;
+  border-radius: 4px;
+}
+</style>

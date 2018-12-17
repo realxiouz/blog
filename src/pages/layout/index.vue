@@ -31,7 +31,7 @@
               <template slot="title">
                 <Icon type="md-clipboard" />七牛
               </template>
-              <MenuItem name="1-1" :to="{path: `/admin/qn`}">图片列表</MenuItem>
+              <MenuItem name="qiniu" :to="{path: `/admin/qn`}">图片列表</MenuItem>
             </Submenu>
           </Menu>
         </Sider>
