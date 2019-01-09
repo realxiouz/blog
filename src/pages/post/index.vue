@@ -33,7 +33,8 @@
       </FormItem>
       <FormItem style="display: block" prop='body'>
         <mark-down v-if="form.markdown === 1" v-model="form.body" :pre-see="preSee"/>
-        <rich-text v-else v-model="form.body"/>
+        <!-- <rich-text v-else v-model="form.body"/> -->
+        <rich-text v-else/>
       </FormItem>
       <FormItem>
         <Button @click="handleSubmit" type='primary'>submit</Button>
@@ -45,7 +46,7 @@
 
 <script>
 import MarkDown from '@/components/markdown'
-import RichText from '@/components/richtext'
+import RichText from '@/components/richtext/richtext'
 import { newPost, getPostById, editPost } from '@/utils/api'
 export default {
   created() {

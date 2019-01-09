@@ -52,6 +52,7 @@ export default {
               .then(res => {
                 this.$router.push({path: '/admin/posts'})
                 this.setQNToken(res.data.token)
+                sessionStorage.token = res.data.token
               })
               .catch(_ => {})
           }

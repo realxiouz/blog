@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/pages/layout'
+// import store from '@/store'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   // mode: 'history',
   routes: [
     {
@@ -54,3 +55,13 @@ export default new Router({
     }
   ]
 })
+
+// router.beforeEach((to, from, next) => {
+//   if (!to.meta.noAuth && !store.state.token) {
+//     router.push({name: 'Login'})
+//   }
+//   document.title = to.meta.title
+//   next()
+// })
+
+export default router
