@@ -34,7 +34,7 @@
       <FormItem style="display: block" prop='body'>
         <mark-down v-if="form.markdown === 1" v-model="form.body" :pre-see="preSee"/>
         <!-- <rich-text v-else v-model="form.body"/> -->
-        <rich-text v-else/>
+        <rich-text v-else v-model="form.body"/>
       </FormItem>
       <FormItem>
         <Button @click="handleSubmit" type='primary'>submit</Button>

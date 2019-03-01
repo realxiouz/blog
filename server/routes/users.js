@@ -31,6 +31,7 @@ router.post('/login', async(ctx) => {
       ctx.body = {status: 1, msg: 'no such user'}
     }
   } catch (err) {
+    console.log(err)
     ctx.body = {status: 1, msg: 'sql eror'}
   }
 })
