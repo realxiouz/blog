@@ -4,9 +4,19 @@
       <Header>
         <Menu mode="horizontal" theme="dark">
           <div class="layout-logo"></div>
+          <MenuItem name="posts" :to="{path: `/blog/posts`}"><Icon type="md-clipboard" />文章</MenuItem>
+          <!-- <Submenu name="4">
+            <template slot="title">
+              <Icon type="md-clipboard" />七牛
+            </template>
+            <MenuItem name="qiniu" :to="{path: `/admin/qn`}">图片列表</MenuItem>
+          </Submenu> -->
         </Menu>
       </Header>
-      <Layout>
+      <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
+        <router-view/>
+      </Content>
+      <!-- <Layout>
         <Sider hide-trigger :style="{background: '#fff'}">
           <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']" accordion>
             <Submenu name="1">
@@ -36,16 +46,11 @@
           </Menu>
         </Sider>
         <Layout :style="{padding: '24px 24px'}">
-          <!-- <Breadcrumb :style="{margin: '24px 0'}">
-            <BreadcrumbItem>Home</BreadcrumbItem>
-            <BreadcrumbItem>Components</BreadcrumbItem>
-            <BreadcrumbItem>Layout</BreadcrumbItem>
-          </Breadcrumb> -->
           <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
             <router-view :key='key'/>
           </Content>
         </Layout>
-      </Layout>
+      </Layout> -->
     </Layout>
   </div>
 </template>

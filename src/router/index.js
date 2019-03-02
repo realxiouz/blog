@@ -14,6 +14,17 @@ const router = new Router({
       component: () => import('@/pages/index')
     },
     {
+      path: '/blog',
+      name: 'Blog',
+      component: _ => import('@/pages/blog'),
+      children: [
+        {
+          path: 'posts',
+          component: _ => import('@/pages/blog/post-list')
+        }
+      ]
+    },
+    {
       path: '/admin/login',
       name: 'Login',
       component: () => import('@/pages/login')
