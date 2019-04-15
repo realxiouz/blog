@@ -33,6 +33,7 @@
               </template>
               <MenuItem name="qiniu" :to="{path: `/admin/qn`}">图片列表</MenuItem>
             </Submenu>
+            <MenuItem name="1-1" :to="{path: `/admin/qn`}">标签管理</MenuItem>
           </Menu>
         </Sider>
         <Layout :style="{padding: '24px 24px'}">
