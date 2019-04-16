@@ -14,8 +14,7 @@
         </Input>
       </FormItem>
       <FormItem prop='tag'>
-        <Input v-model="form.tag" placeholder="请输入标签">
-        </Input>
+        <Input v-model="form.tag" placeholder="请输入标签"/>
       </FormItem>
       <FormItem prop='category'>
         <Select v-model="form.category" placeholder='选择类型' style='width: 100px'>
@@ -71,7 +70,7 @@ export default {
         markdown: 1,
         body: ''
       },
-      categories: [{name: 'js', val: '0'}, {name: 'css', val: '1'}],
+      categories: [{name: 'js', val: '0'}, {name: 'css', val: '1'}, {name: 'test', val: '2'}],
       preSee: true,
       rules: {
         title: [

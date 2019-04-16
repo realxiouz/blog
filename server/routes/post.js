@@ -49,6 +49,7 @@ router.post('/', async (ctx, next) => {
     })
     ctx.body = {status: 0, data: posts}
   } catch (err) {
+    console.log(err)
     ctx.body = {status: 1, msg: JSON.stringify(err)}
   }
 })

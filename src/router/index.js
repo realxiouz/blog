@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/pages/layout'
+import FrontLayout from '@/pages/front/layout'
+
 // import store from '@/store'
 
 Vue.use(Router)
@@ -14,9 +16,14 @@ const router = new Router({
       component: () => import('@/pages/index')
     },
     {
-      path: '/github/callback',
-      name: 'Index',
-      component: () => import('@/pages/index/github')
+      path: '/',
+      component: FrontLayout,
+      children: [
+        {
+          path: 'posts',
+          component: _ => import('@/pages/front/posts')
+        }
+      ]
     },
     {
       path: '/blog',
