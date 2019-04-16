@@ -14,6 +14,11 @@ const router = new Router({
       component: () => import('@/pages/index')
     },
     {
+      path: '/github/callback',
+      name: 'Index',
+      component: () => import('@/pages/index/github')
+    },
+    {
       path: '/blog',
       name: 'Blog',
       component: _ => import('@/pages/blog'),
