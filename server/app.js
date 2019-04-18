@@ -9,6 +9,7 @@ const index = require('./routes/index')
 const users = require('./routes/users')
 const posts = require('./routes/post')
 const gathers = require('./routes/gather')
+const git = require('./routes/github')
 
 // error handler
 onerror(app)
@@ -35,6 +36,7 @@ app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 app.use(posts.routes(), posts.allowedMethods())
 app.use(gathers.routes(), gathers.allowedMethods())
+app.use(git.routes(), git.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

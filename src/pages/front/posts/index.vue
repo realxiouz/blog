@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(i, inx) in items" :key="inx" class="post-item">
-      <h2 class="title">{{inx}} </h2>
+      <h2 class="title">{{i.title}} </h2>
     </div>
   </div>
 </template>
@@ -19,8 +19,7 @@ export default {
   methods: {
     getData() {
       getPostsFront().then(r => {
-        console.log(r)
-        this.items = this.items.push(...r.data.rows)
+        this.items = this.items.concat(r.data.rows)
       })
     }
   }
