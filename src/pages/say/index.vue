@@ -5,7 +5,7 @@
       :key="inx"
     >
       <div>
-        <img :src="`http://pjpw0xspe.bkt.clouddn.com/${i.response.hash}`" alt="">
+        <img :src="`http://pjpw0xspe.bkt.clouddn.com/${i.response.hash}`">
       </div>
     </div>
     <Upload
@@ -16,14 +16,13 @@
       :on-success='handleSuccess'
       :on-error='handleError'
       ref="upload"
+      v-if="fileList.length<=1"
     >
-      <!-- <Button icon="ios-cloud-upload-outline">Upload files</Button> -->
-      <div
-        class="upload-btn"
-      >
+      <div class="upload-btn">
         <Icon type="ios-camera" size="20"></Icon>
       </div>
     </Upload>
+    <Input v-model="value" placeholder="Enter something..." style="width: 300px" />
   </div>
 </template>
 
@@ -38,7 +37,8 @@ export default {
   },
   data() {
     return {
-      fileList: []
+      fileList: [],
+      value: '',
     }
   },
   methods: {
