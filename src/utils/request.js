@@ -15,7 +15,10 @@ axios.interceptors.response.use(
       return Promise.reject(new Error('后端相应不是json???'))
     }
   },
-  _ => {
+  e => {
+    if (e.data) {
+      console.log(e.status)
+    }
     Message.error('网络不通...')
     return Promise.reject(new Error('网络不通'))
   }

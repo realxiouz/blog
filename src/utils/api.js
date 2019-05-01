@@ -4,11 +4,11 @@ import r from './request'
 export const login = p => r.post('/api/user/login', p)
 
 // post
-export const newPost = p => r.post('/api/post', p)
-export const getPost = p => r.get('/api/post', {params: p})
-export const delPost = p => r.delete('/api/post', {data: p})
-export const getPostById = p => r.get('/api/post/id', {params: p})
-export const editPost = p => r.put('/api/post', p)
+export const newPost = p => r.post('/api/articles', p)
+export const getPost = p => r.get('/api/articles', {params: p})
+export const delPost = id => r.delete(`/api/articles/${id}`)
+export const getPostById = id => r.get(`/api/articles/${id}`)
+export const editPost = p => r.put(`/api/articles/${p.id}`, p)
 
 // gather
 export const newGather = p => r.post('/api/gather', p)
@@ -19,3 +19,6 @@ export const editGather = p => r.put('/api/gather', p)
 
 // test
 export const qn = p => r.get('/api/common/qn', {params: p})
+
+// tags
+export const getTags = _ => r.get('/api/tags')

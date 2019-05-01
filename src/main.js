@@ -3,13 +3,13 @@ import App from './App'
 import router from './router'
 import iview from 'iview'
 import 'iview/dist/styles/iview.css'
-// import ElementUI from 'element-ui'
-// import 'element-ui/lib/theme-chalk/index.css'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/main.scss'
 
 import store from './store'
 
-// Vue.use(ElementUI)
+Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 Vue.use(iview)

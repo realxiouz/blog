@@ -90,8 +90,10 @@ export default {
       getPost({limit: 10, page})
         .then(res => {
           this.loading = false
-          this.data = res.data.rows
-          this.total = res.data.count
+          // this.data = res.data.rows
+          // this.total = res.data.count
+          this.data = res.data
+          this.total = res.data.length
         })
         .catch(_ => (this.loading = false))
     },
