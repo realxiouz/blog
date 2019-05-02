@@ -13,9 +13,6 @@
           </Select>
         </Input>
       </FormItem>
-      <!-- <FormItem prop='tag'>
-        <Input v-model="form.tag" placeholder="请输入标签"/>
-      </FormItem> -->
       <FormItem prop='tag_ids'>
         <el-cascader
           :options="tags"
@@ -80,19 +77,13 @@ export default {
       },
       preSee: true,
       rules: {
-        // title: [
-        //   { required: true, message: '填写文章标题', trigger: 'blur' },
-        //   { min: 5, max: 20, message: '字数限定5-20字' }
-        // ],
-        // tag_id: [
-        //   { required: true, message: '选择文章标签', trigger: 'blur' }
-        // ],
-        // // category: [
-        // //   { required: true, message: '选择文章类型', trigger: 'blur', type: 'string' }
-        // // ],
-        // body: [
-        //   { required: true, message: '填写文章正文', trigger: 'blur' }
-        // ]
+        title: [
+          { required: true, message: '填写文章标题', trigger: 'blur' },
+          { min: 5, max: 20, message: '字数限定5-20字' }
+        ],
+        body: [
+          { required: true, message: '填写文章正文', trigger: 'blur' }
+        ]
       },
 
       selTag: [],

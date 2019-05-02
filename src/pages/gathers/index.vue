@@ -14,7 +14,7 @@
     <Page
       style="margin-top:10px"
       :total="total"
-      :page-size='10'
+      :page-size='pageSize'
       show-total
       show-elevator
       @on-change='handleChangePage'
@@ -40,7 +40,7 @@ export default {
         {
           title: '内容',
           render: (h, params) => (
-            h('div', {props: {vText: params.row.detail}}, '')
+            h('div', {props: {vText: params.row.body}}, '')
           )
         },
         {
@@ -65,7 +65,7 @@ export default {
               }, 'Edit'),
               h('Button', {
                 props: {
-                  type: params.row.status === 1 ? 'error' : 'success',
+                  type: params.row.deleted_at ? 'success' : 'error',
                   size: 'small'
                 },
                 style: {
@@ -76,21 +76,22 @@ export default {
                     this.delGather(params.row)
                   }
                 }
-              }, params.row.status === 1 ? 'close' : 'open')
+              }, params.row.deleted_at ? 'open' : 'close')
             ])
           )
         }
-      ]
+      ],
+      pageSize: 3,
     }
   },
   methods: {
     getTableData(page = 1) {
       this.loading = true
-      getGather({limit: 10, page})
+      getGather({pageSize: this.pageSize, page})
         .then(res => {
           this.loading = false
-          this.data = res.data.rows
-          this.total = res.data.count
+          this.data = res.data.data
+          this.total = res.data.total
         })
         .catch(_ => (this.loading = false))
     },
@@ -98,9 +99,9 @@ export default {
       this.getTableData(page)
     },
     delGather(i) {
-      delGather({id: i.id, status: i.status})
+      delGather(i.id)
         .then(res => {
-          i.status === 0 ? i.status = 1 : i.status = 0
+          i.deleted_at ? i.deleted_at = null : i.deleted_at = 1
         })
     },
     detail(id) {

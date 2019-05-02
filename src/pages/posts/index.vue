@@ -14,7 +14,7 @@
     <Page
       style="margin-top:10px"
       :total="total"
-      :page-size='10'
+      :page-size='pageSize'
       show-total
       show-elevator
       @on-change='handleChangePage'
@@ -81,19 +81,18 @@ export default {
             ])
           )
         }
-      ]
+      ],
+      pageSize: 4,
     }
   },
   methods: {
     getTableData(page = 1) {
       this.loading = true
-      getPost({limit: 10, page})
+      getPost({pageSize: this.pageSize, page})
         .then(res => {
           this.loading = false
-          // this.data = res.data.rows
-          // this.total = res.data.count
-          this.data = res.data
-          this.total = res.data.length
+          this.data = res.data.data
+          this.total = res.data.total
         })
         .catch(_ => (this.loading = false))
     },

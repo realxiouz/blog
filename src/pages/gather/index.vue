@@ -11,8 +11,11 @@
       <FormItem prop='tag'>
         <Input v-model="form.tag" placeholder="请输入标签"/>
       </FormItem>
-      <FormItem style="display: block" prop='detail'>
-        <rich-text v-model="form.detail"/>
+      <FormItem prop='origin'>
+        <Input v-model="form.origin" placeholder="请输入转载url"/>
+      </FormItem>
+      <FormItem style="display: block" prop='body'>
+        <rich-text v-model="form.body"/>
       </FormItem>
       <FormItem>
         <Button @click="handleSubmit" type='primary'>submit</Button>
@@ -31,10 +34,10 @@ export default {
   },
   mounted() {
     if (this.isEdit) {
-      getGatherById({id: this.$route.params.id})
+      getGatherById(this.$route.params.id)
         .then(res => {
-          const {detail, tag, title} = res.data
-          this.form = {detail, tag, title}
+          const {body, tag, title, origin} = res.data
+          this.form = {body, tag, title, origin}
         })
     }
   },
@@ -43,19 +46,24 @@ export default {
       form: {
         title: '',
         tag: '',
-        detail: ''
+        body: '',
+        origin: '',
       },
       rules: {
         title: [
           { required: true, message: '填写文章标题', trigger: 'blur' },
-          { min: 5, max: 20, message: '字数限定5-20字' }
+          { min: 5, max: 50, message: '字数限定5-50字' }
         ],
         tag: [
           { required: true, message: '填写文章标签', trigger: 'blur' },
           { min: 2, max: 8, message: '字数限定2-8字' }
         ],
-        detail: [
+        body: [
           { required: true, message: '填写文章正文', trigger: 'blur' }
+        ],
+        origin: [
+          { required: true, message: '填写转载url', trigger: 'blur' },
+          // v => !!v && v.startsWith('http') || '必须以http或者https开始'
         ]
       }
     }
