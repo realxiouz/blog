@@ -25,3 +25,7 @@ export const getTags = _ => r.get('/api/tags')
 
 // says
 export const newSay = p => r.post('/api/says', p)
+export const getSay = p => r.get('/api/says', {params: p})
+export const getSayById = id => r.get(`/api/says/${id}`)
+export const editSay = p => r.put(`/api/says/${p.id}`, p)
+

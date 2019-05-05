@@ -31,7 +31,7 @@
       :on-success='handleSuccess'
       :on-error='handleError'
       ref="upload"
-      v-if="fileList.length<=1"
+      v-if="fileList.length<1"
     >
       <div class="upload-btn">
         <Icon type="ios-camera" size="20"></Icon>
@@ -44,13 +44,22 @@
 
 <script>
 import { mapState } from 'vuex'
-import {newSay} from '@/utils/api'
+import {newSay, getSayById, editSay} from '@/utils/api'
 export default {
   computed: {
     ...mapState(['qnToken'])
   },
   mounted() {
-    this.fileList = this.$refs.upload.fileList
+    if (this.$route.params.id) {
+      getSayById(this.$route.params.id).then(r => {
+        let {content, img} = r.data
+        this.form.content = content
+        if (img) {
+          this.form.img = img
+          this.fileList = [{response:{data: img}}]
+        }
+      })
+    }
   },
   data() {
     return {
@@ -65,15 +74,24 @@ export default {
     handleSuccess(res, file, list) {
       // console.log(res, file, list)
       this.fileList = list
-      this.form.img = list[0].response.data;
+      this.form.img = list[0].response.data
     },
     handleError(err, file, list) {
       console.log(err, file, list)
     },
     handleNewSay() {
-      newSay(this.form).then(r => {
-
-      })
+      if (this.$route.params.id) {
+        editSay(Object.assign({}, this.form, {id: this.$route.params.id})).then(r => {
+          this.$Message.info('发布成功')
+          this.$router.go(-1)
+        })
+      } else {
+        newSay(this.form).then(r => {
+          this.$Message.info('发布成功')
+          this.$router.go(-1)
+        })
+      }
+      
     }
   },
 }
