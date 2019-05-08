@@ -1,5 +1,21 @@
 import axios from 'axios'
 import { Message } from 'iview'
+import store from '@/store'
+
+console.log('token', store.state.token)
+
+axios.interceptors.request.use(
+  r => {
+    r.headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${store.state.token}`
+    }
+    return r
+  },
+  e => {
+    console.log(e)
+  }
+)
 
 axios.interceptors.response.use(
   response => {

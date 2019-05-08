@@ -4,7 +4,8 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-  qnToken: ''
+  qnToken: '',
+  token: ''
 }
 
 export default new Vuex.Store({
@@ -12,6 +13,9 @@ export default new Vuex.Store({
   mutations: {
     setQNToken(state, token) {
       state.qnToken = token
+    },
+    setToken(s, t) {
+      s.token = t
     }
   }
 })

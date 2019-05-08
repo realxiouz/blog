@@ -6,9 +6,9 @@
       :model='form'>
       <FormItem
         :rules="{required: true, message: '请输入用户名', trigger: 'blur'}"
-        prop='name'>
+        prop='email'>
         <Input
-          v-model="form.name"
+          v-model="form.email"
           placeholder="输入用户名"
         >
           <Icon type="ios-person-outline" slot="prepend"/>
@@ -16,9 +16,9 @@
       </FormItem>
       <FormItem
         :rules="{required: true, message: '请输入密码', trigger: 'blur'}"
-        prop='pwd'>
+        prop='password'>
         <Input
-          v-model="form.pwd"
+          v-model="form.password"
           type="password"
           placeholder="输入密码">
           <Icon type="ios-lock-outline" slot="prepend"/>
@@ -34,12 +34,13 @@
 <script>
 import { login } from '@/utils/api'
 import { mapMutations } from 'vuex'
+import { constants } from 'crypto';
 export default {
   data() {
     return {
       form: {
-        name: '',
-        pwd: '',
+        email: 'xiouz@163.com',
+        password: '12345678',
       }
     }
   },
@@ -52,13 +53,14 @@ export default {
               .then(res => {
                 this.$router.push({path: '/admin/posts'})
                 this.setQNToken(res.data.token)
+                this.setToken(res.data.api_token)
                 sessionStorage.token = res.data.token
               })
               .catch(_ => {})
           }
         })
     },
-    ...mapMutations(['setQNToken'])
+    ...mapMutations(['setQNToken', 'setToken'])
   }
 }
 </script>
