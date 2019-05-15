@@ -9,6 +9,15 @@ import '@/assets/css/main.scss'
 
 import store from './store'
 
+import Echo from 'laravel-echo'
+window.io = require('socket.io-client')
+
+window.Echo = new Echo({
+    broadcaster: 'socket.io',
+    host: 'http://localhost:6001'
+    // host: window.location.hostname + ':6001'
+})
+
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false

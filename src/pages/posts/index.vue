@@ -27,6 +27,10 @@ import { getPost, delPost } from '@/utils/api'
 export default {
   created() {
     this.getTableData()
+
+    window.Echo.channel('test-echo').listen('TestEvent', e => {
+      console.log(e)
+    })
   },
   data() {
     return {
