@@ -27,10 +27,13 @@ import { getPost, delPost } from '@/utils/api'
 export default {
   created() {
     this.getTableData()
-
-    window.Echo.channel('test-echo').listen('TestEvent', e => {
-      console.log(e)
-    })
+    // window.Echo.channel('test-echo').listen('TestEvent', e => {
+    //   this.$Notice.info({
+    //       title: e.title,
+    //       desc: `${new Date(e.time)}`,
+    //       duration: 0
+    //   })
+    // })
   },
   data() {
     return {

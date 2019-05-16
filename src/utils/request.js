@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { Message } from 'iview'
 import store from '@/store'
+import router from '@/router'
 
-console.log('token', store.state.token)
+// console.log('token', store.state.token)
 
 axios.interceptors.request.use(
   r => {
@@ -24,6 +25,9 @@ axios.interceptors.response.use(
         return response.data
       } else {
         Message.error(response.data.msg)
+        if (response.data.code === 403) {
+          router.push({path: '/admin/login'})
+        }
         return Promise.reject(new Error(response.data.msg))
       }
     } else {
