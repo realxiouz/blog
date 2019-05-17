@@ -3,13 +3,11 @@ import { Message } from 'iview'
 import store from '@/store'
 import router from '@/router'
 
-// console.log('token', store.state.token)
-
 axios.interceptors.request.use(
   r => {
     r.headers = {
       'Accept': 'application/json',
-      'Authorization': `Bearer ${store.state.token}`
+      'Authorization': `Bearer ${store.state.user ? store.state.user.api_token : ''}`
     }
     return r
   },

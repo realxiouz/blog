@@ -56,7 +56,7 @@ export default {
         this.form.content = content
         if (img) {
           this.form.img = img
-          this.fileList = [{response:{data: img}}]
+          this.fileList = [{response: {data: img}}]
         }
       })
     }
@@ -91,7 +91,6 @@ export default {
           this.$router.go(-1)
         })
       }
-      
     }
   },
 }

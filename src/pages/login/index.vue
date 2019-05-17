@@ -34,7 +34,7 @@
 <script>
 import { login } from '@/utils/api'
 import { mapMutations } from 'vuex'
-import { constants } from 'crypto';
+
 export default {
   data() {
     return {
@@ -52,15 +52,16 @@ export default {
             login(this.form)
               .then(res => {
                 this.$router.push({path: '/admin/posts'})
-                this.setQNToken(res.data.token)
-                this.setToken(res.data.api_token)
-                sessionStorage.token = res.data.token
+                // this.setQNToken(res.data.token)
+                // this.setToken(res.data.api_token)
+                this.setUser(res.data)
+                sessionStorage.token = res.data.api_token
               })
               .catch(_ => {})
           }
         })
     },
-    ...mapMutations(['setQNToken', 'setToken'])
+    ...mapMutations(['setQNToken', 'setToken', 'setUser'])
   }
 }
 </script>

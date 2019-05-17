@@ -35,6 +35,7 @@ module.exports = {
       "functions": "ignore"
     }],
     'no-tabs': [0],
-    'indent': [0]
+    'indent': [0],
+    'camelcase': [0]
   }
 }

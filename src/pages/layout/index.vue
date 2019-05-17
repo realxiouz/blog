@@ -4,6 +4,7 @@
       <Header>
         <Menu mode="horizontal" theme="dark">
           <div class="layout-logo"></div>
+            <i-button @click="logout">logout</i-button>
         </Menu>
       </Header>
       <Layout>
@@ -52,12 +53,44 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
+  data: _ => ({
+    timer: 0,
+    count: 0
+  }),
   computed: {
     key() {
       return this.$route.path + new Date()
+    },
+    ...mapState(['user'])
+  },
+  methods: {
+    logout() {
+      this.$store.commit('setUser', {})
+      this.$router.push({path: '/admin/login'})
+    },
+    resetCount() {
+      this.count = 0
     }
-  }
+  },
+  created() {
+    document.addEventListener('mousemove', this.resetCount)
+    this.timer = setInterval(_ => {
+      this.count++
+      // console.log('count', this.count)
+      if (this.count > 10) {
+        this.$Notice.info({
+            title: '长时间未登录，自动退出',
+            duration: 0
+        })
+        clearInterval(this.timer)
+        document.removeEventListener('mousemove', this.resetCount)
+        this.logout()
+      }
+    }, 1000)
+  },
 }
 </script>
 

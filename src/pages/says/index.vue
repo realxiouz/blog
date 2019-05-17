@@ -34,19 +34,23 @@ export default {
       loading: false,
       columns: [
           {title: '内容', key: 'content'},
-          {title: '图片', key: 'img', width: 140, render: (h, params) => (
-            params.row.img ? h('div', [
-              h('img', {
-                attrs: {
-                  src: `http://localhost:8000${params.row.img}`
-                },
-                style: {
-                  width: '100px',
-                  height:'100px'
-                }
-              })
-            ]) : h('Tag','没有图片')
-          )},
+          {
+            title: '图片',
+            key: 'img',
+            width: 140,
+            render: (h, params) => (
+              params.row.img ? h('div', [
+                h('img', {
+                  attrs: {
+                    src: `http://localhost:8000${params.row.img}`
+                  },
+                  style: {
+                    width: '100px',
+                    height: '100px'
+                  }
+                })
+              ]) : h('Tag', '没有图片')
+            )},
           {title: '时间', key: 'created_at', width: 100},
           {
             title: '操作',
