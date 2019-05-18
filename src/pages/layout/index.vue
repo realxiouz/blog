@@ -54,6 +54,7 @@
 
 <script>
 import {mapState} from 'vuex'
+import { logout as out } from '@/utils/api'
 
 export default {
   data: _ => ({
@@ -68,8 +69,10 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.commit('setUser', {})
-      this.$router.push({path: '/admin/login'})
+      out(this.user.id).then(r => {
+        this.$store.commit('setUser', {})
+        this.$router.push({path: '/admin/login'})
+      })
     },
     resetCount() {
       this.count = 0
@@ -80,7 +83,7 @@ export default {
     this.timer = setInterval(_ => {
       this.count++
       // console.log('count', this.count)
-      if (this.count > 10) {
+      if (this.count > 60 * 5) {
         this.$Notice.info({
             title: '长时间未登录，自动退出',
             duration: 0
@@ -90,6 +93,14 @@ export default {
         this.logout()
       }
     }, 1000)
+
+    window.Echo.private(`User${this.user.id}`).listen('TestEvent', e => {
+      this.$Notice.info({
+          title: e.title,
+          desc: `${new Date(e.time)}`,
+          duration: 0
+      })
+    })
   },
 }
 </script>

@@ -2,6 +2,7 @@ import r from './request'
 
 // user
 export const login = p => r.post('/api/user/login', p)
+export const logout = id => r.post(`/api/user/logout/${id}`)
 
 // post
 export const newPost = p => r.post('/api/articles', p)

@@ -14,8 +14,14 @@ window.io = require('socket.io-client')
 
 window.Echo = new Echo({
     broadcaster: 'socket.io',
-    host: 'http://localhost:6001'
+    host: 'http://192.168.28.128:6001',
     // host: window.location.hostname + ':6001'
+    auth: {
+      headers:
+        {
+          'authorization': 'Bearer ' + store.state.user ? store.state.user.api_token : ''
+        }
+    }
 })
 
 Vue.use(ElementUI)
